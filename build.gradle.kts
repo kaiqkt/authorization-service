@@ -18,7 +18,6 @@ dependencies {
     implementation("io.javalin:javalin:3.13.10")
     implementation("org.koin:koin-core:1.0.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.9.4")
-    implementation("org.apache.kafka:kafka-clients:2.6.0")
     implementation ("org.slf4j:slf4j-simple:1.7.30")
     implementation ("io.azam.ulidj:ulidj:1.0.0")
     implementation("org.litote.kmongo:kmongo:4.2.8")
@@ -26,6 +25,7 @@ dependencies {
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 application {
@@ -67,4 +67,12 @@ fun loadEnv(environment: MutableMap<String, Any>, file: File) {
 
 tasks.withType<JavaExec>{
     loadEnv(environment, file("variables.env"))
+}
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+    jvmTarget = "1.8"
 }

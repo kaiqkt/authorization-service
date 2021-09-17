@@ -1,0 +1,13 @@
+version: '2'
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo:3
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "authorization-service"
+      MONGO_INITDB_DATABASE: "authorization-service"
+      MONGO_INITDB_ROOT_PASSWORD: "authorization-service"
+    volumes:
+      - ./docker/mongodb/:/docker-entrypoint-initdb.d
