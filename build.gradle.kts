@@ -21,6 +21,10 @@ dependencies {
     implementation ("org.slf4j:slf4j-simple:1.7.30")
     implementation ("io.azam.ulidj:ulidj:1.0.0")
     implementation("org.litote.kmongo:kmongo:4.2.8")
+    implementation("io.jsonwebtoken:jjwt:0.7.0")
+    implementation("javax.xml.bind:jaxb-api:2.3.0")
+    implementation("com.sun.xml.bind:jaxb-core:2.3.0")
+    implementation("com.sun.xml.bind:jaxb-impl:2.3.0")
 
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")

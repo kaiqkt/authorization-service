@@ -6,6 +6,7 @@ import me.kaique.application.configs.Messages
 import me.kaique.application.web.dto.ErrorResponse
 import me.kaique.domain.exceptions.CreateUserException
 import me.kaique.domain.exceptions.EmailAlreadyExistsException
+import me.kaique.domain.exceptions.InvalidUserException
 import me.kaique.domain.exceptions.enums.DomainExceptionType
 import org.eclipse.jetty.http.HttpStatus
 import org.slf4j.Logger
@@ -24,16 +25,20 @@ class ErrorHandler {
             handleException(e, ctx)
         }
 
-        app.exception(Exception::class.java) { _, ctx ->
-            handleException(ctx)
+        app.exception(InvalidUserException::class.java) { e, ctx ->
+            handleException(e, ctx)
         }
+
+//        app.exception(Exception::class.java) { _, ctx ->
+//            handleException(ctx)
+//        }
     }
 
     private fun handleException(
         createUserException: CreateUserException,
         ctx: Context
     ) {
-        log.error(" Create user exception error: ${ctx.method()} ${ctx.url()}")
+        log.error("Create user exception error: ${ctx.method()} ${ctx.url()}")
         ctx.status(HttpStatus.INTERNAL_SERVER_ERROR_500)
         ctx.json(
             ErrorResponse(
@@ -47,7 +52,7 @@ class ErrorHandler {
         emailAlreadyExistsException: EmailAlreadyExistsException,
         ctx: Context
     ) {
-        log.error(" Email already used exception error: ${ctx.method()} ${ctx.url()}")
+        log.error("Email already used exception error: ${ctx.method()} ${ctx.url()}")
         ctx.status(HttpStatus.BAD_REQUEST_400)
         ctx.json(
             ErrorResponse(
@@ -60,12 +65,25 @@ class ErrorHandler {
     private fun handleException(
         ctx: Context
     ) {
-        log.error(" Internal service error: ${ctx.method()} ${ctx.url()}")
+        log.error("Internal service error: ${ctx.method()} ${ctx.url()}")
         ctx.status(HttpStatus.INTERNAL_SERVER_ERROR_500)
         ctx.json(
             ErrorResponse(
                 apiError = DomainExceptionType.INTERNAL_SERVER_ERROR,
                 message = Messages.INTERNAL_SERVER_ERROR)
+        )
+    }
+
+    private fun handleException(
+        invalidUserException: InvalidUserException,
+        ctx: Context
+    ) {
+        log.error("Invalid user error: ${ctx.method()} ${ctx.url()}")
+        ctx.status(HttpStatus.FORBIDDEN_403)
+        ctx.json(
+            ErrorResponse(
+                apiError = invalidUserException.type,
+                message = Messages.INVALID_USER_ERROR)
         )
     }
 }

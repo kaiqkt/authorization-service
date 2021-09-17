@@ -4,6 +4,7 @@ import com.mongodb.ConnectionString
 import me.kaique.application.configs.AuthConfig
 import me.kaique.application.configs.mongoDatabase
 import me.kaique.application.web.handler.ErrorHandler
+import me.kaique.domain.jwt.JwtUtils
 import org.koin.dsl.module.module
 
 val dependenciesModule = module {
@@ -14,6 +15,13 @@ val dependenciesModule = module {
 
     single {
         ErrorHandler()
+    }
+
+    single {
+        JwtUtils(
+            secret = getProperty("JWT_SECRET"),
+            expiration = getProperty("JWT_EXPIRATION")
+        )
     }
 
     single {

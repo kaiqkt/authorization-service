@@ -5,7 +5,7 @@ import io.javalin.core.security.Role
 import io.javalin.http.Context
 
 internal enum class Roles : Role {
-    CUSTOMER, ADM
+    USER, ADM
 }
 
 private const val HEADER_TOKEN_NAME = "Authorization"

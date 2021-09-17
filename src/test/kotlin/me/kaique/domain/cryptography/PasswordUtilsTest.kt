@@ -1,6 +1,7 @@
 package me.kaique.domain.cryptography
 
 import me.kaique.domain.entities.Password
+import me.kaique.domain.cripto.PasswordUtils
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 

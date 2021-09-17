@@ -1,4 +1,4 @@
-package me.kaique.domain.cryptography
+package me.kaique.domain.cripto
 
 import me.kaique.domain.entities.Password
 import java.lang.Integer.parseInt

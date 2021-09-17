@@ -16,10 +16,15 @@ val userModules = module {
         )
     }
 
-    single { UserService(userRepository = get())
+    single {
+        UserService(
+            userRepository = get(),
+            jwtUtils = get()
+        )
     }
 
-    single { UserController(userService = get())
+    single {
+        UserController(userService = get())
     }
 
     single { UserRoutes(userController = get()) }
