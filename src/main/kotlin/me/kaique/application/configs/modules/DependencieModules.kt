@@ -10,7 +10,7 @@ import org.koin.dsl.module.module
 val dependenciesModule = module {
 
     single {
-        AuthConfig()
+        AuthConfig(serviceToken = getProperty("SERVICE_TOKEN"))
     }
 
     single {
