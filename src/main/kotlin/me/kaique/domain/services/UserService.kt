@@ -32,11 +32,10 @@ class UserService(private val userRepository: UserRepository, private val jwtUti
 
         userRepository.findByEmail(login.email)?.let {
             if (cipher.validatePassword(login.password, it.password)) {
-                return jwtUtils.generateToken(it.userId)
+                return jwtUtils.generateToken(it.accountId)
             }
             throw InvalidUserException("Invalid password")
         }
-
         throw InvalidUserException("Invalid email")
     }
 }

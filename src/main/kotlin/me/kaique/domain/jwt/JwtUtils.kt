@@ -7,9 +7,9 @@ import java.util.Date
 
 class JwtUtils(private val secret: String, private val expiration: String) {
 
-    fun generateToken(userId: String): String {
+    fun generateToken(accountId: String): String {
         return Jwts.builder()
-            .setSubject(userId)
+            .setSubject(accountId)
             .setIssuedAt(Date())
             .setExpiration(Date(System.currentTimeMillis() + expiration.toLong()))
             .signWith(SignatureAlgorithm.HS512, secret.toByteArray())
@@ -27,7 +27,7 @@ class JwtUtils(private val secret: String, private val expiration: String) {
         return false
     }
 
-    fun getUserId(token: String): String? {
+    fun getAccountId(token: String): String? {
         val claims = getClaims(token)
         return claims?.id
     }
