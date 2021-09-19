@@ -6,6 +6,8 @@ import me.kaique.application.web.Constants
 import me.kaique.application.web.controllers.UserController
 import me.kaique.application.web.validator.getContentTypeWithoutCharset
 import me.kaique.application.web.validator.notAcceptable
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 class UserRoutes(private val userController: UserController) {
 
@@ -19,13 +21,13 @@ class UserRoutes(private val userController: UserController) {
             }
         }, setOf(Roles.SERVICE))
 
-        post("/login") { ctx ->
+        post("/login", { ctx ->
             when {
                 ctx.getContentTypeWithoutCharset() == Constants.LOGIN_DOMAIN -> {
                     userController.login(ctx)
                 }
                 else -> ctx.notAcceptable()
             }
-        }
+        }, setOf(Roles.ANYONE))
     }
 }

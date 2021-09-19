@@ -1,7 +1,6 @@
 version: '2'
 services:
-  mongodb:
-    container_name: authorization-mongo
+  authorization-mongo:
     image: mongo:3
     ports:
       - "27017:27017"
