@@ -19,7 +19,7 @@ class JwtUtils(private val secret: String, private val expiration: String) {
     fun validToken(token: String): Boolean {
         val claims = getClaims(token)
         if (claims != null) {
-            val personId = claims.id
+            val personId = claims.subject
             val expirationDate = claims.expiration
             val now = Date(System.currentTimeMillis())
             return personId != null && expirationDate != null && now.before(expirationDate)
@@ -29,7 +29,7 @@ class JwtUtils(private val secret: String, private val expiration: String) {
 
     fun getAccountId(token: String): String? {
         val claims = getClaims(token)
-        return claims?.id
+        return claims?.subject
     }
 
     private fun getClaims(token: String): Claims? {

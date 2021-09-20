@@ -1,6 +1,7 @@
 package me.kaique.application.web.routes
 
 import io.javalin.apibuilder.ApiBuilder.post
+import io.javalin.core.security.SecurityUtil
 import me.kaique.application.configs.Roles
 import me.kaique.application.web.Constants
 import me.kaique.application.web.controllers.UserController
