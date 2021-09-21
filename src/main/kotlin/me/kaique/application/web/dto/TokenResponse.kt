@@ -1,6 +1,6 @@
 package me.kaique.application.web.dto
 
-data class TokenDto(
+data class TokenResponse(
     val token: String
 )
 

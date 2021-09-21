@@ -1,9 +1,9 @@
 package me.kaique.application.web.controllers
 
 import io.javalin.http.Context
-import me.kaique.application.web.dto.LoginDto
-import me.kaique.application.web.dto.TokenDto
-import me.kaique.application.web.dto.UserDto
+import me.kaique.application.web.dto.LoginRequest
+import me.kaique.application.web.dto.TokenResponse
+import me.kaique.application.web.dto.UserRequest
 import me.kaique.application.web.dto.toDomain
 import me.kaique.application.web.ext.isEmailValid
 import me.kaique.application.web.ext.isPasswordValid
@@ -13,7 +13,7 @@ import org.eclipse.jetty.http.HttpStatus
 class UserController(private val userService: UserService) {
 
     fun register(ctx: Context) {
-        ctx.bodyValidator<UserDto>()
+        ctx.bodyValidator<UserRequest>()
             .check({ it.email.isEmailValid() })
             .check({ it.password.isPasswordValid() })
             .get().also { dto ->
@@ -24,9 +24,9 @@ class UserController(private val userService: UserService) {
     }
 
     fun login(ctx: Context) {
-        val dto = ctx.body<LoginDto>()
+        val dto = ctx.body<LoginRequest>()
         val token = userService.authenticate(dto.toDomain())
 
-       ctx.json(TokenDto(token)).status(HttpStatus.OK_200)
+       ctx.json(TokenResponse(token)).status(HttpStatus.OK_200)
     }
 }
