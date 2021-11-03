@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val mainPkgAndClass = "me.com.kaique.application.Main"
+val mainPkgAndClass = "me.kaique.application.Main"
 group = "com.kaique"
 version = "1.2.0"
 
